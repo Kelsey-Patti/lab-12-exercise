@@ -1,5 +1,11 @@
 ﻿Q3. What happens to the bounding boxes with update + fullRefit?
+    The bounding boxes get bigger as the circles move away from each other and the circles remain in the same bounding boxes. 
 
 Q4. What happens with reset (rebuild every frame) instead?
+    When rebuilding the bounding boxes are recalculated so the circles get regrouped and the bounding boxes stay tighter around the circles.
 
 Q5. Why are some circles drawn with their sides cut off?
+    When moving reset before update, the bounding boxes are calculated with the circles' current positions. This means that when you call update, the circles move and some may 
+    move to outside of the old bounding box. In this case, intersect() believes that some section of the circle is outside of the bounding box. 
+    This means that section will not be drawn. To fix this, move reset so that it executes after the update function so that the reset is done with
+    updated circle positions.
